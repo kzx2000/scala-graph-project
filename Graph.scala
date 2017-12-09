@@ -45,6 +45,10 @@ object Graph{
   }
 
   def adj_Djikstra(srcVertex : Int, destinationVertex : Int, G : Array[Array[Int]]): List[Int] ={
+    // TODO : seems that it does not care about direction in the graph, it only considers weigths
+    // TODO : change node structure for a more object oriented way
+    // TODO : stop algorithm if destination node is reached
+    // TODO : print path and weights
 
     // add can reachFunction
     if(canReach(srcVertex, destinationVertex, G, Array.fill(G.size)(false))) {
@@ -95,6 +99,6 @@ object Graph{
 
   def main(args: Array[String]): Unit = {
     //println(canReach(0,3,adjMatrix, Array.fill(adjMatrix.size)(false)))
-    println(adj_Djikstra(0,3, adjMatrix))
+    println(adj_Djikstra(2,1, adjMatrix))
   }
 }
