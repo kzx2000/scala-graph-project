@@ -1,17 +1,10 @@
 package graph
 
 import collection.mutable
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
-object Graph{
-  case class Edge(val dest : Vertex, val weight : Int)
+object Graph_adj{
 
-  class Vertex{
-    val edges = mutable.Buffer[Edge]()
-  }
-
-  val graph = Array.fill(4)(new Vertex)
-  graph(0).edges += Edge(graph(1),2) += Edge(graph(2),3)
 
   val adjMatrix = Array(
     Array(0,1,0,0),
@@ -68,14 +61,12 @@ object Graph{
         // determine neighbors' indices
         val neighbors = for (i <- G(currentNode).indices if G(currentNode)(i) > 0) yield i
 
-        for (neighbor <- neighbors) {
+        for (neighbor <- neighbors if (w(neighbor) > w(currentNode) + G(currentNode)(neighbor))) {
           // for each neighbor update the value of the path if actual weight greater than the weight of parent node + weighted link
-          if (w(neighbor) > w(currentNode) + G(currentNode)(neighbor)) {
             // weight update
             w = w.updated(neighbor, G(currentNode)(neighbor) + w(currentNode))
             // parent node update
             parentNode = parentNode.updated(neighbor, currentNode)
-          }
         }
 
         // delete current node for nodes
@@ -98,7 +89,8 @@ object Graph{
   }
 
   def main(args: Array[String]): Unit = {
-    //println(canReach(0,3,adjMatrix, Array.fill(adjMatrix.size)(false)))
+    println(canReach(0,3,adjMatrix, Array.fill(adjMatrix.size)(false)))
     println(adj_Djikstra(2,1, adjMatrix))
+
   }
 }
