@@ -85,10 +85,10 @@ object Graph_obj {
   nodeA.addNeighbors(nodeC, 2)
   nodeB.addNeighbors(nodeD, 4)
   nodeD.addNeighbors(nodeE, 6)
-  nodeC.addNeighbors(nodeE, 5)
+  //nodeC.addNeighbors(nodeE, 5)
   nodeC.addNeighbors(nodeF, 1)
   nodeF.addNeighbors(nodeD, 1)
-  nodeF.addNeighbors(nodeE, 2)
+  nodeF.addNeighbors(nodeE, 9)
 
   // toString
   // define the current graph
@@ -167,7 +167,8 @@ object Graph_obj {
         val min : ((Node, Node), Int)= findMin(node_stack)
 
         // Delete minimun element from the stack
-        node_stack -= min._1
+        // and the other path with higher value going to this node
+        for(n <- node_stack; if(n._1._1==min._1._1)) node_stack -= n._1
         // update minimum node Djikstra variable with its previous node and the total cost to come to it
         min._1._1.setDijkstra(min._1._2,min._2)
         // set the minimum node as the current node of the algorithm
@@ -189,7 +190,7 @@ object Graph_obj {
   def main(args: Array[String]): Unit = {
     // fonction define graph
     try {
-      val path : List[Node] = dijkstra("A", "D")
+      val path : List[Node] = dijkstra("A", "E")
       println(pathToString(path))
     } catch {
       case e: IllegalArgumentException => println("Impossible de trouver le noeud dans le graph ! ")

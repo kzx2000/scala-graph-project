@@ -90,7 +90,7 @@ object Graph_adj{
 
   def main(args: Array[String]): Unit = {
     println(canReach(0,3,adjMatrix, Array.fill(adjMatrix.size)(false)))
-    println(adj_Djikstra(2,1, adjMatrix))
+    println(adj_Djikstra(0,3, adjMatrix))
 
   }
 }
